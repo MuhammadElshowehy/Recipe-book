@@ -1,0 +1,20 @@
+.remove{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+.saveCancel {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.saveCancel button{
+  width: 50%;
+}
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched{
+  border: 1.5px solid red;
+}
+span{
+  color: red;
+}

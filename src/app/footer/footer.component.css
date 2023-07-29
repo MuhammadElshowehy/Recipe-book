@@ -1,0 +1,14 @@
+.footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: red;
+}
+/* .footer .left{
+  display: flex;
+  justify-content: flex-start;
+}
+.footer .right{
+  display: flex;
+  justify-content: flex-start;
+} */

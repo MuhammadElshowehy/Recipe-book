@@ -1,2 +1,142 @@
-<h3>Recipe edit</h3>
-<h4>recipe id: {{id}}</h4>
+<div class="row form" style="margin-bottom: 10px">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+              #recipeName
+            />
+            <span
+              *ngIf="
+                recipeForm.get('name').invalid && recipeForm.get('name').touched
+              "
+            >
+              Recipe name is required!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imgPath">Image Path</label>
+            <input
+              type="text"
+              name="recipeName.value"
+              id="imgPath"
+              class="form-control"
+              formControlName="imgPath"
+              #imgPath
+            />
+            <span
+              *ngIf="
+                recipeForm.get('imgPath').invalid &&
+                recipeForm.get('imgPath').touched
+              "
+            >
+              Image path is required!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <img [src]="imgPath.value" [alt]="imgPath.name" class="img-responsive" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              type="text"
+              id="description"
+              class="form-control"
+              rows="5"
+              formControlName="desc"
+            ></textarea>
+            <span
+              *ngIf="
+                recipeForm.get('desc').invalid && recipeForm.get('desc').touched
+              "
+            >
+              Recipe description is required!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12" formArrayName="ingredients">
+          <div
+            class="row"
+            *ngFor="let ingredientControl of ingredientsControls; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="col-xs-8 form-group">
+              <label for="ingredient">Ingredient: {{ i + 1 }}</label>
+              <input
+                type="text"
+                id="ingredient"
+                class="form-control"
+                formControlName="name"
+              />
+            </div>
+            <div class="col-xs-2 form-group">
+              <label for="amount">Amount</label>
+              <input
+                type="number"
+                id="amount"
+                class="form-control"
+                formControlName="amount"
+              />
+            </div>
+            <div class="col-xs-2 form-group remove">
+              <label for="remove" style="display: block">Remove</label>
+              <button
+                type="button"
+                id="remove"
+                class="btn btn-danger"
+                (click)="removeIngredient(i)"
+              >
+                X
+              </button>
+            </div>
+          </div>
+          <div>
+            <button
+              class="btn btn-primary"
+              type="button"
+              style="width: 100%"
+              (click)="addIngredient()"
+            >
+              Add ingredient
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 saveCancel">
+          <button
+            type="submit"
+            class="btn btn-success"
+            style="margin-right: 10px"
+            [disabled]="recipeForm.invalid"
+          >
+            Save
+          </button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
