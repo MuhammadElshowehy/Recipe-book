@@ -2,20 +2,22 @@
   [routerLink]="[index]"
   routerLinkActive="active"
   class="list-group-item clearfix">
-  <div class="pull-left">
-    <h4 class="list-group-item-heading">
-      {{ recipe.name }}
-    </h4>
-    <h4 class="list-group-item-text">
-      {{ recipe.desc }}
-    </h4>
+  <div class="row">
+    <div class="pull-left col-xs-9">
+      <h4 class="list-group-item-heading">
+        {{ recipe.name | titlecase }}
+      </h4>
+      <h4 class="list-group-item-text">
+        {{ recipe.desc }}
+      </h4>
+    </div>
+    <div class="pull-right col-xs-3">
+      <img
+        [src]="recipe.imgPath"
+        alt="{{ recipe.name }}"
+        class="img-responsive"
+        style="max-height: 55px"
+      />
+    </div>
   </div>
-  <span class="pull-right">
-    <img
-      [src]="recipe.imgPath"
-      alt="{{ recipe.name }}"
-      class="img-responsive"
-      style="max-height: 55px"
-    />
-  </span>
 </a>

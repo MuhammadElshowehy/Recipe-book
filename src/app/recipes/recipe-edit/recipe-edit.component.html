@@ -1,5 +1,7 @@
 <div class="row form" style="margin-bottom: 10px">
   <div class="col-xs-12">
+    <h3 class="editRecipe" *ngIf="editMode">Edit Recipe</h3>
+    <h3 class="editRecipe" *ngIf="!editMode">Create New Recipe</h3>
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
@@ -18,6 +20,9 @@
               "
             >
               Recipe name is required!
+              <span *ngIf="recipeForm.get('name').errors['nameIsFound']">
+                This name already exists!
+              </span>
             </span>
           </div>
         </div>
@@ -48,7 +53,11 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <img [src]="imgPath.value" [alt]="imgPath.name" class="img-responsive" />
+            <img
+              [src]="imgPath.value"
+              [alt]="imgPath.name"
+              class="img-responsive"
+            />
           </div>
         </div>
       </div>

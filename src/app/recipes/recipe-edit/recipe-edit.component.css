@@ -18,3 +18,7 @@ textarea.ng-invalid.ng-touched{
 span{
   color: red;
 }
+.editRecipe{
+  color: #337ab7;
+  text-align: center;
+}

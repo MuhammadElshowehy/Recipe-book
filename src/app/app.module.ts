@@ -18,8 +18,10 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { FooterComponent } from './footer/footer.component';
 import { RecipeService } from './recipes/recipe.service';
-import { SaveRecipesService } from './shared/save-recipes.service';
+import { SaveFetchRecipesAndIngredientsService } from './shared/save&fetch-recipes&ingredients.service';
 import { RecipeResolverService } from './recipes/recipe-resolver.service';
+import { FetchService } from './header/save&fetch-from-header.service';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { RecipeResolverService } from './recipes/recipe-resolver.service';
     RecipeStartComponent,
     RecipeEditComponent,
     FooterComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,8 +49,9 @@ import { RecipeResolverService } from './recipes/recipe-resolver.service';
   providers: [
     ShoppingListService,
     RecipeService,
-    SaveRecipesService,
+    SaveFetchRecipesAndIngredientsService,
     RecipeResolverService,
+    FetchService
   ],
   bootstrap: [AppComponent],
 })

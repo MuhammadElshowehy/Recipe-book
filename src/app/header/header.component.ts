@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SaveRecipesService } from '../shared/save-recipes.service';
+
+import { FetchService } from './save&fetch-from-header.service';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +8,14 @@ import { SaveRecipesService } from '../shared/save-recipes.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private saveRecipesService: SaveRecipesService){}
+  constructor(private fetchService: FetchService) {}
   collapsed = true;
 
-  onSaveRecipes(){
-    this.saveRecipesService.saveRecipes();
+  onSaveRecipesAndIngredients() {
+    this.fetchService.onSave();
   }
 
-  onFetchRecipes(){
-    this.saveRecipesService.fetchRecipes().subscribe();
+  onFetchRecipesAndIngredients() {
+    this.fetchService.onFetch();
   }
 }

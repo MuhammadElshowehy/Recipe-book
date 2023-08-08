@@ -1,0 +1,10 @@
+h3{
+  color: #337ab7;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+.buttons button{
+  width: 40%;
+}

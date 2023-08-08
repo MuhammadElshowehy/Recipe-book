@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -9,6 +10,7 @@ import { RecipeService } from '../recipe.service';
   styleUrls: ['./recipe-edit.component.css'],
 })
 export class RecipeEditComponent {
+  recipes: Recipe[] = this.recipeService.getRecipes();
   id: number;
   editMode: boolean = false;
   recipeForm: FormGroup;
@@ -56,7 +58,7 @@ export class RecipeEditComponent {
     }
 
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
+      name: new FormControl(recipeName, [Validators.required, this.nameValidate.bind(this)]),
       imgPath: new FormControl(recipeImgPath, Validators.required),
       desc: new FormControl(recipeDesc, Validators.required),
       ingredients: recipeIngredients,
@@ -74,8 +76,16 @@ export class RecipeEditComponent {
     (<FormArray>this.recipeForm.get('ingredients')).push(newIngredient);
   }
 
-  removeIngredient(num: number){
-    let singleIngredient = (<FormArray>this.recipeForm.get('ingredients'));
+  nameValidate(control: FormControl) {
+    for(let recipe of this.recipes){
+      if(recipe.name === control.value.trim() && this.editMode === false){
+        return {'nameIsFound': true};
+      }
+    }
+  }
+
+  removeIngredient(num: number) {
+    let singleIngredient = <FormArray>this.recipeForm.get('ingredients');
     singleIngredient.removeAt(num);
   }
 
@@ -84,7 +94,7 @@ export class RecipeEditComponent {
   }
 
   onSubmit() {
-    if(this.editMode){
+    if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
@@ -92,8 +102,8 @@ export class RecipeEditComponent {
     this.onCancel();
   }
 
-  onCancel(){
+  onCancel() {
     this.editMode = false;
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
