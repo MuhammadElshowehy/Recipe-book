@@ -1,0 +1,33 @@
+.backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
+  opacity: 0.75;
+  z-index: 1;
+}
+.alert-box{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40vw;
+  height: 20vh;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: ghostwhite;
+  border-radius: 5px;
+  z-index: 2;
+}
+p{
+  text-align: center;
+  color: red;
+  padding: 1rem 0;
+}
+button{
+  padding: .5rem 2rem;
+}
