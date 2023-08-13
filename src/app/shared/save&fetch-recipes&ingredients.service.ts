@@ -16,12 +16,21 @@ export class SaveFetchRecipesAndIngredientsService {
 
   saveRecipes() {
     const recipes = this.recipeService.getRecipes();
-    this.http
-      .put(
-        'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json',
-        recipes
-      )
-      .subscribe();
+    if (recipes) {
+      this.http
+        .put(
+          'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json',
+          recipes
+        )
+        .subscribe();
+    } else {
+      this.http
+        .post(
+          'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json',
+          recipes
+        )
+        .subscribe();
+    }
   }
 
   fetchRecipes() {
@@ -57,8 +66,9 @@ export class SaveFetchRecipesAndIngredientsService {
         .subscribe();
     } else {
       this.http
-        .delete(
-          'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/ingredients.json'
+        .post(
+          'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/ingredients.json',
+          ingredients
         )
         .subscribe();
     }

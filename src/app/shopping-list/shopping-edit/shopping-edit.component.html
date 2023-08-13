@@ -36,7 +36,7 @@
             type="submit"
             [disabled]="myForm.invalid"
           >
-            {{ editMode ? "Update ingredient" : "Add ingredient" }}
+            {{ editMode ? "Update" : "Add" }}
           </button>
           <button
             class="btn btn-danger"
@@ -45,7 +45,7 @@
             (click)="onDelete()"
             *ngIf="editMode"
           >
-            Delete ingredient
+            Delete
           </button>
           <button
             class="btn btn-primary"

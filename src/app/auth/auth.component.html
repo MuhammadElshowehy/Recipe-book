@@ -1,18 +1,61 @@
-<h3>Welcome In Auth Page</h3>
-<hr>
+<h3>Welcome In Authentication Page</h3>
+<hr />
 <div class="row">
-  <form class="col-xs-12 col-sm-8 col-md-6 ">
+  <div *ngIf="isLoading" class="spinner">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+  <form
+    *ngIf="!isLoading"
+    class="col-xs-12 col-sm-8 col-md-6"
+    (ngSubmit)="onSubmit()"
+    #authForm="ngForm"
+  >
     <div class="form-group">
       <label for="email">EMail</label>
-      <input type="email" id="email" class="form-control">
+      <input
+        type="email"
+        ngModel
+        name="email"
+        required
+        email
+        id="email"
+        class="form-control"
+        #email="ngModel"
+      />
+      <span *ngIf="email.invalid && email.touched">
+        Please insert a valid email!
+      </span>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" id="password" class="form-control">
+      <input
+        type="password"
+        ngModel
+        name="password"
+        required
+        minlength="8"
+        id="password"
+        class="form-control"
+        #password="ngModel"
+      />
+      <span *ngIf="password.invalid && password.touched">
+        Insert at least 8 character!
+      </span>
     </div>
     <div class="buttons">
-      <button class="btn btn-primary">Login</button>
-      <button class="btn btn-primary">SignUp</button>
+      <button class="btn btn-primary" type="button" (click)="switchMode()">
+        {{ isLoginMode ? "Switch to signUp" : "Switch to login" }}
+      </button>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="authForm.invalid"
+      >
+        {{ isLoginMode ? "Login =>" : "Sign up =>" }}
+      </button>
     </div>
   </form>
 </div>

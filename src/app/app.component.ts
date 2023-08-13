@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FetchService } from './header/save&fetch-from-header.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +7,8 @@ import { FetchService } from './header/save&fetch-from-header.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private fetch: FetchService){}
+  constructor(private authService: AuthService){}
   ngOnInit() {
-    this.fetch.onFetch();
+    this.authService.autoLogin();
   }
 }

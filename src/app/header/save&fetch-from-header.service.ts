@@ -20,7 +20,7 @@ export class FetchService {
     this.saveFetchRecipesAndIngredientsService
       .fetchIngredients()
       .subscribe((ingredients: Ingredient[]) => {
-        if(ingredients){
+        if (ingredients) {
           this.shoppingListService.fetchIngredients(ingredients);
         }
       });

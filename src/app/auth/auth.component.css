@@ -1,10 +1,26 @@
-h3{
+h3 {
   color: #337ab7;
 }
-.buttons{
+.buttons {
   display: flex;
   justify-content: space-between;
 }
-.buttons button{
+.buttons button {
   width: 40%;
+}
+@media (max-width: 350px) {
+  .buttons button {
+    width: 49.5%;
+  }
+}
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+span {
+  color: red;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
