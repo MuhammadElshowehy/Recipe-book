@@ -1,7 +1,6 @@
 <div class="row form" style="margin-bottom: 10px">
   <div class="col-xs-12">
-    <h3 class="editRecipe" *ngIf="editMode">Edit Recipe</h3>
-    <h3 class="editRecipe" *ngIf="!editMode">Create New Recipe</h3>
+    <h3 class="editRecipe">{{ editMode? 'Edit Recipe' : 'Create New Recipe'}}</h3>
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">

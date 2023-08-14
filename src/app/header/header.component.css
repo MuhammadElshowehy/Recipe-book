@@ -1,9 +1,10 @@
 nav {
+  border-radius: 0;
   position:sticky;
   top: 0;
   left: 0;
   z-index: 1;
-  border-bottom: 2px solid #3379b7;
+  border-bottom: 1px solid #3379b7;
 }
 .logo{
   width: 45px;
@@ -15,4 +16,7 @@ nav {
   border: none;
   padding: 0;
   margin: 0;
+}
+li a{
+  color: #3379b7;
 }

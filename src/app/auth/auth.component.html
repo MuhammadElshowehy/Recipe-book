@@ -1,65 +1,64 @@
-<main>
-  <section>
-    <app-alert [message]="error" *ngIf="error"></app-alert>
-    <div class="row">
-      <div class="welcome">
-        <h3>Welcome In Recipe Book</h3>
-        <h3>Please login or signUp!</h3>
-      </div>
-      <div *ngIf="isLoading" class="spinner">
-        <app-loading-spinner></app-loading-spinner>
-      </div>
-      <form
-        *ngIf="!isLoading"
-        class="col-xs-12 col-sm-8 col-md-6"
-        (ngSubmit)="onSubmit()"
-        #authForm="ngForm"
-      >
-        <div class="form-group">
-          <label for="email">EMail</label>
-          <input
-            type="email"
-            ngModel
-            name="email"
-            required
-            email
-            id="email"
-            class="form-control"
-            #email="ngModel"
-          />
-          <span *ngIf="email.invalid && email.touched">
-            Please insert a valid email!
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            ngModel
-            name="password"
-            required
-            minlength="8"
-            id="password"
-            class="form-control"
-            #password="ngModel"
-          />
-          <span *ngIf="password.invalid && password.touched">
-            Insert at least 8 character!
-          </span>
-        </div>
-        <div class="buttons">
-          <button class="btn btn-primary" type="button" (click)="switchMode()">
-            {{ isLoginMode ? "Switch to signUp" : "Switch to login" }}
-          </button>
-          <button
-            class="btn btn-primary"
-            type="submit"
-            [disabled]="authForm.invalid"
-          >
-            {{ isLoginMode ? "Login =>" : "Sign up =>" }}
-          </button>
-        </div>
-      </form>
+<div class="background"></div>
+<section>
+  <app-alert [message]="error" *ngIf="error"></app-alert>
+  <div class="row">
+    <div class="welcome">
+      <h3>Welcome In Recipe Book</h3>
+      <h3>Please login or signUp!</h3>
     </div>
-  </section>
-</main>
+    <div *ngIf="isLoading" class="spinner">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form
+      *ngIf="!isLoading"
+      class="col-xs-12 col-sm-8 col-md-6"
+      (ngSubmit)="onSubmit()"
+      #authForm="ngForm"
+    >
+      <div class="form-group">
+        <label for="email">EMail</label>
+        <input
+          type="email"
+          ngModel
+          name="email"
+          required
+          email
+          id="email"
+          class="form-control"
+          #email="ngModel"
+        />
+        <span *ngIf="email.invalid && email.touched">
+          Please insert a valid email!
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          ngModel
+          name="password"
+          required
+          minlength="8"
+          id="password"
+          class="form-control"
+          #password="ngModel"
+        />
+        <span *ngIf="password.invalid && password.touched">
+          Insert at least 8 character!
+        </span>
+      </div>
+      <div class="buttons">
+        <button class="btn btn-primary" type="button" (click)="switchMode()">
+          {{ isLoginMode ? "Switch to signUp" : "Switch to login" }}
+        </button>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="authForm.invalid"
+        >
+          {{ isLoginMode ? "Login =>" : "Sign up =>" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

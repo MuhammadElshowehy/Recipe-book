@@ -1,14 +1,25 @@
-.footer{
+footer {
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: red;
+  background-color: #337ab7;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  position: relative;
+  z-index: 3;
 }
-/* .footer .left{
+ul {
+  list-style: none;
   display: flex;
-  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
 }
-.footer .right{
-  display: flex;
-  justify-content: flex-start;
-} */
+ul li {
+  margin: 0 5px;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
