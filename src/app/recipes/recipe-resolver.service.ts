@@ -8,7 +8,7 @@ import { Recipe } from './recipe.model';
 import { SaveFetchRecipesAndIngredientsService } from '../shared/save&fetch-recipes&ingredients.service';
 import { RecipeService } from './recipe.service';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class RecipeResolverService implements Resolve<Recipe[]> {
   constructor(
     private saveFetchRecipesAndIngredientsService: SaveFetchRecipesAndIngredientsService,

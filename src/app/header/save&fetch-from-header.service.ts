@@ -3,7 +3,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import { SaveFetchRecipesAndIngredientsService } from '../shared/save&fetch-recipes&ingredients.service';
 import { ShoppingListService } from '../shopping-list/shoppingList.service';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FetchService {
   constructor(
     private saveFetchRecipesAndIngredientsService: SaveFetchRecipesAndIngredientsService,

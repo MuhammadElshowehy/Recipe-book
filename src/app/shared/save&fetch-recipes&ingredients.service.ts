@@ -6,7 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { ShoppingListService } from '../shopping-list/shoppingList.service';
 import { Ingredient } from './ingredient.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SaveFetchRecipesAndIngredientsService {
   constructor(
     private http: HttpClient,

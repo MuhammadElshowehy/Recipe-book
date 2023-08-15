@@ -13,7 +13,7 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
   authUser = new BehaviorSubject<User>(null);
   clearTimer = null;
