@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShoppingListService } from '../shoppingList.service';
+import { SaveFetchRecipesAndIngredientsService } from 'src/app/shared/save&fetch-recipes&ingredients.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -18,7 +19,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   selectedItem: number;
   item: Ingredient;
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private saveFetchRecipesAndIngredientsService: SaveFetchRecipesAndIngredientsService
+  ) {}
 
   ngOnInit() {
     this.obs = this.shoppingListService.startEdit.subscribe(
@@ -45,12 +49,14 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     } else {
       this.shoppingListService.addIngredient(newIngredient);
     }
+    this.saveFetchRecipesAndIngredientsService.saveIngredients();
     myForm.reset();
     this.editMode = false;
   }
 
   onDelete(){
     this.shoppingListService.deleteIngredient(this.selectedItem);
+    this.saveFetchRecipesAndIngredientsService.saveIngredients();
     this.onCancel();
   }
 

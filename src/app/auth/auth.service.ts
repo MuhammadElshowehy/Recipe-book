@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { SaveFetchRecipesAndIngredientsService } from '../shared/save&fetch-recipes&ingredients.service';
+import { ShoppingListService } from '../shopping-list/shoppingList.service';
+import { Ingredient } from '../shared/ingredient.model';
+import { environment } from 'src/environments/environment';
 
 export interface AuthResponseData {
   idToken: string;
@@ -13,16 +17,22 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   authUser = new BehaviorSubject<User>(null);
   clearTimer = null;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private saveFetchRecipesAndIngredientsService: SaveFetchRecipesAndIngredientsService,
+    private shoppingListService: ShoppingListService
+  ) {}
 
   signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBThqdP8l4w4sHMGR831pYzU4804sZc27I',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+          environment.firebaseAPIKey,
         {
           email: email,
           password: password,
@@ -38,6 +48,7 @@ export class AuthService {
             resData.idToken,
             resData.expiresIn
           );
+          this.fetchData();
         })
       );
   }
@@ -45,7 +56,8 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBThqdP8l4w4sHMGR831pYzU4804sZc27I',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          environment.firebaseAPIKey,
         {
           email: email,
           password: password,
@@ -61,6 +73,7 @@ export class AuthService {
             resData.idToken,
             resData.expiresIn
           );
+          this.fetchData();
         })
       );
   }
@@ -90,7 +103,8 @@ export class AuthService {
       let expDuration =
         new Date(userData._tokenExpirationDate).getTime() -
         new Date().getTime();
-        // console.log(expDuration); // rest time for token expiration.
+      // console.log(expDuration); // rest time for token expiration.
+      this.fetchData();
       this.autoLogout(expDuration);
     }
   }
@@ -126,8 +140,18 @@ export class AuthService {
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
+  fetchData() {
+    this.saveFetchRecipesAndIngredientsService.fetchRecipes().subscribe();
+    this.saveFetchRecipesAndIngredientsService
+      .fetchIngredients()
+      .subscribe((ingredients: Ingredient[]) => {
+        if (ingredients) {
+          this.shoppingListService.fetchedIngredients(ingredients);
+        }
+      });
+  }
+
   private handleError(resError: HttpErrorResponse) {
-    console.log(resError);
     let errorMsg = 'An unknown error ocurred!';
     if (!resError.error || !resError.error.error) {
       return throwError(errorMsg);

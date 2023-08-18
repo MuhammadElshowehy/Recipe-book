@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { FetchService } from './save&fetch-from-header.service';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -11,7 +10,6 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
-    private fetchService: FetchService,
     private authService: AuthService
   ) {}
   collapsed = true;
@@ -26,14 +24,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.obs.unsubscribe();
-  }
-
-  onSaveRecipesAndIngredients() {
-    this.fetchService.onSave();
-  }
-
-  onFetchRecipesAndIngredients() {
-    this.fetchService.onFetch();
   }
 
   onLogout(){

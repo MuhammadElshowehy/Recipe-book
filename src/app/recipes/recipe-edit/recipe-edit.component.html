@@ -1,6 +1,8 @@
 <div class="row form" style="margin-bottom: 10px">
   <div class="col-xs-12">
-    <h3 class="editRecipe">{{ editMode? 'Edit Recipe' : 'Create New Recipe'}}</h3>
+    <h3 class="editRecipe">
+      {{ editMode ? "Edit Recipe" : "Create New Recipe" }}
+    </h3>
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
@@ -32,7 +34,6 @@
             <label for="imgPath">Image Path</label>
             <input
               type="url"
-              name="recipeName.value"
               id="imgPath"
               class="form-control"
               formControlName="imgPath"
@@ -107,7 +108,7 @@
               />
             </div>
             <div class="col-xs-2 form-group remove">
-              <label for="remove" style="display: block">Remove</label>
+              <label for="remove" style="display: block">Del</label>
               <button
                 type="button"
                 id="remove"

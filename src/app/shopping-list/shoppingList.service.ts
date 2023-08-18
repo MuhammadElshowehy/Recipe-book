@@ -61,7 +61,7 @@ export class ShoppingListService {
     this.synchChanges();
   }
 
-  fetchIngredients(ingredients: Ingredient[]) {
+  fetchedIngredients(ingredients: Ingredient[]) {
     this.ingredients = ingredients;
     this.synchChanges();
   }

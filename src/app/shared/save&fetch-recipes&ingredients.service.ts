@@ -40,14 +40,16 @@ export class SaveFetchRecipesAndIngredientsService {
       )
       .pipe(
         map((recipes) => {
-          return recipes.map((singleRecipe) => {
-            return {
-              ...singleRecipe,
-              ingredients: singleRecipe.ingredients
-                ? singleRecipe.ingredients
-                : [],
-            };
-          });
+          if(recipes){
+            return recipes.map((singleRecipe) => {
+              return {
+                ...singleRecipe,
+                ingredients: singleRecipe.ingredients
+                  ? singleRecipe.ingredients
+                  : [],
+              };
+            });
+          }
         }),
         tap((recipes) => {
           this.recipeService.fetchedRecipes(recipes);
@@ -66,10 +68,8 @@ export class SaveFetchRecipesAndIngredientsService {
         .subscribe();
     } else {
       this.http
-        .post(
-          'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/ingredients.json',
-          ingredients
-        )
+        .delete(
+          'https://recipe-book-56a99-default-rtdb.asia-southeast1.firebasedatabase.app/ingredients.json')
         .subscribe();
     }
   }

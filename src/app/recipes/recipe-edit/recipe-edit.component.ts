@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
+import { SaveFetchRecipesAndIngredientsService } from 'src/app/shared/save&fetch-recipes&ingredients.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -10,20 +11,23 @@ import { Recipe } from '../recipe.model';
   styleUrls: ['./recipe-edit.component.css'],
 })
 export class RecipeEditComponent {
-  recipes: Recipe[] = this.recipeService.getRecipes();
+  recipes: Recipe[] = [];
   id: number;
   editMode: boolean = false;
   recipeForm: FormGroup;
+
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private saveFetchRecipesAndIngredientsService: SaveFetchRecipesAndIngredientsService
   ) {}
 
   ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
     this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
       if (params['id']) {
+        this.id = +params['id'];
         this.editMode = true;
       }
       this.initForm();
@@ -58,7 +62,10 @@ export class RecipeEditComponent {
     }
 
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, [Validators.required, this.nameValidate.bind(this)]),
+      name: new FormControl(recipeName, [
+        Validators.required,
+        this.nameValidate.bind(this),
+      ]),
       imgPath: new FormControl(recipeImgPath, Validators.required),
       desc: new FormControl(recipeDesc, Validators.required),
       ingredients: recipeIngredients,
@@ -77,9 +84,11 @@ export class RecipeEditComponent {
   }
 
   nameValidate(control: FormControl) {
-    for(let recipe of this.recipes){
-      if(recipe.name === control.value.trim() && this.editMode === false){
-        return {'nameIsFound': true};
+    if(this.recipes){
+      for (let recipe of this.recipes) {
+        if (recipe.name === control.value.trim() && this.editMode === false) {
+          return { nameIsFound: true };
+        }
       }
     }
   }
@@ -97,8 +106,9 @@ export class RecipeEditComponent {
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
     } else {
-      this.recipeService.addRecipe(this.recipeForm.value);
+      this.recipeService.addRecipe(<Recipe>this.recipeForm.value);
     }
+    this.saveFetchRecipesAndIngredientsService.saveRecipes();
     this.onCancel();
   }
 

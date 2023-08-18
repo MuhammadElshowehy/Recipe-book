@@ -38,8 +38,11 @@ export class AuthComponent {
     }
     authObs.subscribe(
       (responseData) => {
-        console.log(responseData);
         this.router.navigate(['/recipes']);
+        scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
         this.isLoading = false;
       },
       (errorMsg) => {
