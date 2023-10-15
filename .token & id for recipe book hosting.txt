@@ -1,0 +1,7 @@
+token: 1//03saYah4ML6XoCgYIARAAGAMSNwF-L9IrQ1P5vMueuZD_G1f10NeV8-7kS436XLJPSmNuYqkt0znUZEuCpi5a28M3fq6-pdkwMVg
+
+id: 1//03s
+
+project console: https://console.firebase.google.com/u/0/project/recipe-book-56a99/overview
+
+project demo: https://recipe-book-56a99.web.app

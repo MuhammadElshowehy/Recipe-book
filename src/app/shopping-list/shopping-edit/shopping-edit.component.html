@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
     <h3 class="addOrEdit">Add or edit ingredients</h3>
-    <hr>
+    <hr />
     <form (ngSubmit)="onAddItem(myForm)" #myForm="ngForm">
       <div class="row">
         <div class="col-sm-5 form-group">
@@ -29,32 +29,47 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
-          <button
-            class="btn btn-success"
-            style="margin: 5px"
-            type="submit"
-            [disabled]="myForm.invalid"
-          >
-            {{ editMode ? "Update" : "Add" }}
-          </button>
-          <button
-            class="btn btn-danger"
-            style="margin: 5px"
-            type="button"
-            (click)="onDelete()"
-            *ngIf="editMode"
-          >
-            Delete
-          </button>
-          <button
-            class="btn btn-primary"
-            style="margin: 5px"
-            type="button"
-            (click)="onCancel()"
-          >
-            Cancel
-          </button>
+        <div
+          class="col-xs-12"
+          style="display: flex; justify-content: space-between"
+        >
+          <div>
+            <button
+              class="btn btn-success"
+              style="margin: 5px"
+              type="submit"
+              [disabled]="myForm.invalid"
+            >
+              {{ editMode ? "Update" : "Add" }}
+            </button>
+            <button
+              class="btn btn-danger"
+              style="margin: 5px"
+              type="button"
+              (click)="onDelete()"
+              *ngIf="editMode"
+            >
+              Delete
+            </button>
+            <button
+              class="btn btn-primary"
+              style="margin: 5px"
+              type="button"
+              (click)="onCancel()"
+            >
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button
+              class="btn btn-danger"
+              style="margin: 5px"
+              type="button"
+              (click)="OnDeleteAllIngredients()"
+            >
+              Delete All
+            </button>
+          </div>
         </div>
       </div>
     </form>

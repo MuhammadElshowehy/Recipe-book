@@ -25,18 +25,16 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.obs = this.shoppingListService.startEdit.subscribe(
-      (index: number) => {
-        this.editMode = true;
-        this.selectedItem = index;
-        // console.log(this.editedItemIndex); //ok, index reached
-        this.item = this.shoppingListService.getIngredient(index);
-        this.myForm.setValue({
-          name: this.item.name,
-          amount: this.item.amount,
-        });
-      }
-    );
+    this.obs = this.shoppingListService.startEdit.subscribe((index: number) => {
+      this.editMode = true;
+      this.selectedItem = index;
+      // console.log(this.editedItemIndex); //ok, index reached
+      this.item = this.shoppingListService.getIngredient(index);
+      this.myForm.setValue({
+        name: this.item.name,
+        amount: this.item.amount,
+      });
+    });
   }
 
   onAddItem(myForm: NgForm) {
@@ -44,8 +42,11 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       myForm.value.name,
       myForm.value.amount
     );
-    if (this.editMode){
-      this.shoppingListService.updateIngredient(this.selectedItem, newIngredient);
+    if (this.editMode) {
+      this.shoppingListService.updateIngredient(
+        this.selectedItem,
+        newIngredient
+      );
     } else {
       this.shoppingListService.addIngredient(newIngredient);
     }
@@ -54,13 +55,18 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     this.editMode = false;
   }
 
-  onDelete(){
+  onDelete() {
     this.shoppingListService.deleteIngredient(this.selectedItem);
     this.saveFetchRecipesAndIngredientsService.saveIngredients();
     this.onCancel();
   }
 
-  onCancel(){
+  OnDeleteAllIngredients() {
+    this.shoppingListService.deleteAllIngredients();
+    this.saveFetchRecipesAndIngredientsService.saveIngredients();
+  }
+
+  onCancel() {
     this.myForm.reset();
     this.editMode = false;
   }
